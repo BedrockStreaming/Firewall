@@ -16,7 +16,7 @@
     },
     "target-dir": "M6Web/Component/Firewall",
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.4.0",
         "ext-gmp": "*"
     },
     "require-dev": {
