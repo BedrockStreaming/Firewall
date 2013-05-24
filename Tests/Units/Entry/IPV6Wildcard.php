@@ -1,10 +1,10 @@
 <?php
 namespace M6Web\Component\Firewall\Tests\Units\Entry;
 
+require_once __DIR__ . '/../../bootstrap.php';
+
 use mageekguy\atoum;
 use M6Web\Component\Firewall\Entry;
-
-require_once __DIR__ . '/../../bootstrap.php';
 
 /**
  * Test du type d'entrée IPV6Wildcard
@@ -15,7 +15,7 @@ class IPV6Wildcard extends atoum\test
      * @param string $mask           Mask
      * @param string $ip             IP
      * @param array  $expectedResult Result
-     * 
+     *
      * @dataProvider IPProvider
      */
     public function testGoodRange($mask, $ip, $expectedResult)
@@ -29,7 +29,7 @@ class IPV6Wildcard extends atoum\test
     /**
      * @param string  $ip             IP
      * @param boolean $expectedResult Result
-     * 
+     *
      * @dataProvider TemplateProvider
      */
     public function testMatch($ip, $expectedResult)
@@ -58,7 +58,7 @@ class IPV6Wildcard extends atoum\test
 
     /**
      * Data Provider
-     * 
+     *
      * @return array
      */
     protected function TemplateProvider()

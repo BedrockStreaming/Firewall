@@ -1,10 +1,10 @@
 <?php
 namespace M6Web\Component\Firewall\Tests\Units\Entry;
 
+require_once __DIR__ . '/../../bootstrap.php';
+
 use mageekguy\atoum;
 use M6Web\Component\Firewall\Entry;
-
-require_once __DIR__ . '/../../bootstrap.php';
 
 /**
  * Test du type d'entrée IPVCIDR
@@ -15,7 +15,7 @@ class IPV6CIDR extends atoum\test
      * @param string $mask           Mask
      * @param string $ip             IP
      * @param array  $expectedResult Result
-     * 
+     *
      * @dataProvider IPProvider
      */
     public function testGoodRange($mask, $ip, $expectedResult)

@@ -1,10 +1,10 @@
 <?php
 namespace M6Web\Component\Firewall\Tests\Units\Entry;
 
+require_once __DIR__ . '/../../bootstrap.php';
+
 use mageekguy\atoum;
 use M6Web\Component\Firewall\Entry;
-
-require_once __DIR__ . '/../../bootstrap.php';
 
 /**
  * Test du type d'entrée IPV4
@@ -15,7 +15,7 @@ class IPV4 extends atoum\test
      * @param string $mask           Mask
      * @param string $ip             IP
      * @param array  $expectedResult Result
-     * 
+     *
      * @dataProvider IPProvider
      */
     public function testGoodValue($mask, $ip, $expectedResult)
@@ -29,7 +29,7 @@ class IPV4 extends atoum\test
     /**
      * @param string  $ip             IP
      * @param boolean $expectedResult Result
-     * 
+     *
      * @dataProvider TemplateProvider
      */
     public function testMatch($ip, $expectedResult)
@@ -42,7 +42,7 @@ class IPV4 extends atoum\test
 
     /**
      * Data Provider
-     * 
+     *
      * @return array
      */
     protected function IPProvider()
@@ -60,7 +60,7 @@ class IPV4 extends atoum\test
 
     /**
      * Data Provider
-     * 
+     *
      * @return array
      */
     protected function TemplateProvider()
