@@ -1,4 +1,4 @@
-# Firewall
+# Firewall [![Build Status](https://secure.travis-ci.org/m6web/firewall.png)](http://travis-ci.org/m6web/firewall)
 
 This PHP 5.3+ library provides IP filtering features.  
 A lot of [filters](#entries-formats) can be used.  
