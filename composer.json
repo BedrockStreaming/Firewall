@@ -1,8 +1,8 @@
 {
-    "name": "m6/firewall",
+    "name": "m6web/firewall",
     "type": "library",
-    "description" : "IP Filtering for PHP",
-    "keywords": ["firewall","filtering"],
+    "description" : "Library providing IP filtering features",
+    "keywords": ["firewall","IP","filtering"],
     "license": "MIT",
     "authors": [
         {
