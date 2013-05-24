@@ -1,0 +1,25 @@
+{
+    "name": "m6/firewall",
+    "type": "library",
+    "description" : "IP Filtering for PHP",
+    "keywords": ["firewall","filtering"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "M6Web",
+            "email": "opensource@m6web.fr",
+            "homepage": "http://tech.m6web.fr/"
+        }
+    ],
+    "autoload": {
+        "psr-0": {"M6Web\\Component\\Firewall": ""}
+    },
+    "target-dir": "M6Web/Component/Firewall",
+    "require": {
+        "php": ">=5.3.0",
+        "ext-gmp": "*"
+    },
+    "require-dev": {
+        "atoum/atoum": "master-dev"
+    }
+}
