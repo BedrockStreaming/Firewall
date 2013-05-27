@@ -38,15 +38,19 @@ class EntryList extends \mageekguy\atoum\test
 class EntryMock implements EntryInterface
 {
     protected $e;
+
     public function __construct($e)
     {
         $this->e = $e;
     }
+
     public static function match($entry) {}
+
     public function check($entry)
     {
         return $entry == $this->e;
     }
+
     public function getMatchingEntries()
     {
         return array($this->e);

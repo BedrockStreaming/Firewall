@@ -21,9 +21,10 @@ class IPV4Range extends atoum\test
     public function testGoodRange($mask, $ip, $expectedResult)
     {
         $this->assert
-                ->if($entry = new Entry\IPV4Range($mask))
-                ->then()
-                    ->boolean($entry->check($ip))->isIdenticalTo($expectedResult);
+            ->if($entry = new Entry\IPV4Range($mask))
+            ->then()
+                ->boolean($entry->check($ip))->isIdenticalTo($expectedResult)
+        ;
     }
 
     /**
@@ -34,12 +35,12 @@ class IPV4Range extends atoum\test
     protected function IPProvider()
     {
         return array(
-            array('20.66.18.0-20.66.18.255', '20.66.18.50', true),
-            array('20.66.18.0-20.66.18.255', '20.66.18.1', true),
+            array('20.66.18.0-20.66.18.255', '20.66.18.50',  true),
+            array('20.66.18.0-20.66.18.255', '20.66.18.1',   true),
             array('20.66.18.0-20.66.18.255', '20.66.18.255', true),
-            array('20.66.18.0-20.66.18.255', '20.66.18.0', true),
-            array('20.66.18.0-20.66.18.255', '20.66.19.50', false),
-            array('20.66.18.0-20.66.18.255', '20.66.19.0', false),
+            array('20.66.18.0-20.66.18.255', '20.66.18.0',   true),
+            array('20.66.18.0-20.66.18.255', '20.66.19.50',  false),
+            array('20.66.18.0-20.66.18.255', '20.66.19.0',   false),
             array('20.66.18.0-20.66.18.255', '20.66.19.255', false),
         );
     }

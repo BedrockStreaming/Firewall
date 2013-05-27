@@ -1,5 +1,4 @@
 <?php
-
 namespace M6Web\Component\Firewall\Tests\Units;
 
 require_once __DIR__ . '/../bootstrap.php';
@@ -19,7 +18,40 @@ class Firewall extends atoum\test
         $this
             ->assert
             ->object($firewall)
-            ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall');
+            ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
+        ;
+    }
+
+    public function testFieldDefaultState()
+    {
+        $object = new FirewallClass();
+
+        $this
+            ->boolean($object->getDefaultState())
+                ->isFalse()
+            ->object($object->setDefaultState(true))
+                ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
+            ->boolean($object->getDefaultState())
+                ->isTrue()
+            ->object($object->setDefaultState('faux boolean'))
+                ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
+            ->boolean($object->getDefaultState())
+                ->isTrue()
+        ;
+    }
+
+    public function testFieldIpAddress()
+    {
+        $object = new FirewallClass();
+
+        $this
+            ->variable($object->getIpAddress())
+                ->isNull()
+            ->object($object->setIpAddress('127.0.0.1'))
+                ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
+            ->string($object->getIpAddress())
+                ->isEqualTo('127.0.0.1')
+        ;
     }
 
     /**
@@ -31,13 +63,16 @@ class Firewall extends atoum\test
         $firewall->setList($list, 'list', true);
 
         foreach ($ips as $key => $ip) {
-            $_SERVER['REMOTE_ADDR'] = $ip;
-            $result = $firewall->handle();
+            $result = $firewall
+                ->setIpAddress($ip)
+                ->handle()
+            ;
 
             $this
                 ->assert
                 ->boolean($result)
-                ->isIdenticalTo($expectedResults[$key]);
+                ->isIdenticalTo($expectedResults[$key])
+            ;
         }
     }
 
@@ -48,7 +83,7 @@ class Firewall extends atoum\test
             '192.168.0.1',
             '192.168.0.10',
             '192.168.0.42',
-            '192.168.0.255'
+            '192.168.0.255',
         );
 
         return array(
@@ -60,7 +95,7 @@ class Firewall extends atoum\test
                     true,
                     true,
                     true,
-                    true
+                    true,
                 )
             ),
             array(
@@ -71,7 +106,7 @@ class Firewall extends atoum\test
                     false,
                     false,
                     true,
-                    false
+                    false,
                 )
             ),
             array(
@@ -82,7 +117,7 @@ class Firewall extends atoum\test
                     true,
                     true,
                     true,
-                    true
+                    true,
                 )
             ),
             array(
@@ -93,7 +128,7 @@ class Firewall extends atoum\test
                     true,
                     true,
                     true,
-                    true
+                    true,
                 )
             ),
             array(
@@ -104,7 +139,7 @@ class Firewall extends atoum\test
                     false,
                     false,
                     false,
-                    false
+                    false,
                 )
             ),
         );
