@@ -21,9 +21,10 @@ class IPV6Wildcard extends atoum\test
     public function testGoodRange($mask, $ip, $expectedResult)
     {
         $this->assert
-                ->if($entry = new Entry\IPV6Wildcard($mask))
-                ->then()
-                    ->boolean($entry->check($ip))->isIdenticalTo($expectedResult);
+            ->if($entry = new Entry\IPV6Wildcard($mask))
+            ->then()
+                ->boolean($entry->check($ip))->isIdenticalTo($expectedResult)
+        ;
     }
 
     /**
@@ -37,7 +38,8 @@ class IPV6Wildcard extends atoum\test
         $this
             ->assert
             ->boolean(Entry\IPV6Wildcard::match($ip))
-            ->isIdenticalTo($expectedResult);
+            ->isIdenticalTo($expectedResult)
+        ;
     }
 
     /**

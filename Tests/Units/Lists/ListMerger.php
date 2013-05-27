@@ -22,6 +22,7 @@ class ListMerger extends \mageekguy\atoum\test
 
             return null;
         };
+
         $entryList2 = new \mock\M6Web\Component\Firewall\Lists\EntryList();
         $entryList2->getMockController()->isAllowed = function ($e) {
             if ($e == '666' || $e == 'conflict') {
@@ -54,6 +55,6 @@ class ListMerger extends \mageekguy\atoum\test
                 ->isEqualTo(true)
             ->boolean($listMerger->getStatus('conflict', false))
                 ->isEqualTo(false)
-            ;
+        ;
     }
 }

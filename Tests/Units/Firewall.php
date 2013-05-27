@@ -19,7 +19,8 @@ class Firewall extends atoum\test
         $this
             ->assert
             ->object($firewall)
-            ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall');
+            ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
+        ;
     }
 
     /**
@@ -37,7 +38,8 @@ class Firewall extends atoum\test
             $this
                 ->assert
                 ->boolean($result)
-                ->isIdenticalTo($expectedResults[$key]);
+                ->isIdenticalTo($expectedResults[$key])
+            ;
         }
     }
 
@@ -48,7 +50,7 @@ class Firewall extends atoum\test
             '192.168.0.1',
             '192.168.0.10',
             '192.168.0.42',
-            '192.168.0.255'
+            '192.168.0.255',
         );
 
         return array(
@@ -60,7 +62,7 @@ class Firewall extends atoum\test
                     true,
                     true,
                     true,
-                    true
+                    true,
                 )
             ),
             array(
@@ -71,7 +73,7 @@ class Firewall extends atoum\test
                     false,
                     false,
                     true,
-                    false
+                    false,
                 )
             ),
             array(
@@ -82,7 +84,7 @@ class Firewall extends atoum\test
                     true,
                     true,
                     true,
-                    true
+                    true,
                 )
             ),
             array(
@@ -93,7 +95,7 @@ class Firewall extends atoum\test
                     true,
                     true,
                     true,
-                    true
+                    true,
                 )
             ),
             array(
@@ -104,7 +106,7 @@ class Firewall extends atoum\test
                     false,
                     false,
                     false,
-                    false
+                    false,
                 )
             ),
         );

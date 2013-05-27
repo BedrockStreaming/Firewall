@@ -30,7 +30,7 @@ class EntryFactory extends \mageekguy\atoum\test
                 ->containsValues(array('123'))
             ->boolean($entryList->isAllowed('123'))
                 ->isEqualTo(true)
-            ;
+        ;
     }
 }
 
