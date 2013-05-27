@@ -21,9 +21,10 @@ class IPV4Wildcard extends atoum\test
     public function testGoodRange($mask, $ip, $expectedResult)
     {
         $this->assert
-                ->if($entry = new Entry\IPV4Wildcard($mask))
-                ->then()
-                    ->boolean($entry->check($ip))->isIdenticalTo($expectedResult);
+            ->if($entry = new Entry\IPV4Wildcard($mask))
+            ->then()
+                ->boolean($entry->check($ip))->isIdenticalTo($expectedResult)
+        ;
     }
 
     /**
@@ -67,7 +68,7 @@ class IPV4Wildcard extends atoum\test
     {
         return array(
             array('192.168.1.*', true),
-            array('192.168.1', false),
+            array('192.168.1',   false),
             array('192.168.1.0', false),
             array('300.168.1.*', false),
             array('300.168.1.0', false),

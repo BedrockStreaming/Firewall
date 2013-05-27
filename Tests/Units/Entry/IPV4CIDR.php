@@ -21,9 +21,10 @@ class IPV4CIDR extends atoum\test
     public function testGoodRange($mask, $ip, $expectedResult)
     {
         $this->assert
-                ->if($entry = new Entry\IPV4CIDR($mask))
-                ->then()
-                    ->boolean($entry->check($ip))->isIdenticalTo($expectedResult);
+            ->if($entry = new Entry\IPV4CIDR($mask))
+            ->then()
+                ->boolean($entry->check($ip))->isIdenticalTo($expectedResult)
+        ;
     }
 
     /**
@@ -37,7 +38,8 @@ class IPV4CIDR extends atoum\test
         $this
             ->assert
             ->boolean(Entry\IPV4CIDR::match($ip))
-            ->isIdenticalTo($expectedResult);
+            ->isIdenticalTo($expectedResult)
+        ;
     }
 
     /**
@@ -48,12 +50,12 @@ class IPV4CIDR extends atoum\test
     protected function IPProvider()
     {
         return array(
-            array('20.66.18.0/24', '20.66.18.50', true),
-            array('20.66.18.0/24', '20.66.18.1', true),
+            array('20.66.18.0/24', '20.66.18.50',  true),
+            array('20.66.18.0/24', '20.66.18.1',   true),
             array('20.66.18.0/24', '20.66.18.255', true),
-            array('20.66.18.0/24', '20.66.18.0', false),
-            array('20.66.18.0/24', '20.66.19.50', false),
-            array('20.66.18.0/24', '20.66.19.0', false),
+            array('20.66.18.0/24', '20.66.18.0',   false),
+            array('20.66.18.0/24', '20.66.19.50',  false),
+            array('20.66.18.0/24', '20.66.19.0',   false),
             array('20.66.18.0/24', '20.66.19.255', false),
         );
     }
@@ -67,10 +69,10 @@ class IPV4CIDR extends atoum\test
     {
         return array(
             array('20.66.18.0/24', true),
-            array('20.66.18.0', false),
-            array('20.66.18/24', false),
-            array('300.168.1.*', false),
-            array('300.168.1.0', false),
+            array('20.66.18.0',    false),
+            array('20.66.18/24',   false),
+            array('300.168.1.*',   false),
+            array('300.168.1.0',   false),
         );
     }
 }

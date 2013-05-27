@@ -21,9 +21,10 @@ class IPV6Range extends atoum\test
     public function testGoodRange($mask, $ip, $expectedResult)
     {
         $this->assert
-                ->if($entry = new Entry\IPV6Range($mask))
-                ->then()
-                    ->boolean($entry->check($ip))->isIdenticalTo($expectedResult);
+            ->if($entry = new Entry\IPV6Range($mask))
+            ->then()
+                ->boolean($entry->check($ip))->isIdenticalTo($expectedResult)
+        ;
     }
 
     /**
@@ -34,7 +35,7 @@ class IPV6Range extends atoum\test
     protected function IPProvider()
     {
         return array(
-            array('::-::ffff', '::5555', true),
+            array('::-::ffff', '::5555',          true),
             array('::-::ffff', '0:0:0:0:0:0:1:0', false),
             array('::-::ffff', '0:0:0:0:0:0:0:0', true),
         );

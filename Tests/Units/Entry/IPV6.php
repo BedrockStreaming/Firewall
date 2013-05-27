@@ -21,9 +21,10 @@ class IPV6 extends atoum\test
     public function testGoodValue($mask, $ip, $expectedResult)
     {
         $this->assert
-                ->if($entry = new Entry\IPV6($mask))
-                ->then()
-                    ->boolean($entry->check($ip))->isIdenticalTo($expectedResult);
+            ->if($entry = new Entry\IPV6($mask))
+            ->then()
+                ->boolean($entry->check($ip))->isIdenticalTo($expectedResult)
+        ;
     }
 
     /**

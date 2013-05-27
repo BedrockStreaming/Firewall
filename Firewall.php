@@ -14,9 +14,9 @@ use M6Web\Component\Firewall\Lists\ListMerger;
 class Firewall
 {
     /**
-     * @var boolean $defaultState Default returned value
+     * @var EntryFactory Entry Factory
      */
-    protected $defaultState = false;
+    protected $entryFactory;
 
     /**
      * @var ListMerger $listMerger Lists wrapper
@@ -24,9 +24,14 @@ class Firewall
     protected $listMerger;
 
     /**
-     * @var EntryFactory Entry Factory
+     * @var boolean $defaultState Default returned value
      */
-    protected $entryFactory;
+    protected $defaultState = false;
+
+    /**
+     * @varstring $ipAddress IP Address to test
+     */
+    protected $ipAddress;
 
     /**
      * Constructor
@@ -63,6 +68,16 @@ class Firewall
     }
 
     /**
+     * Get default returned value
+     *
+     * @return boolean
+     */
+    public function getDefaultState()
+    {
+        return $this->defaultState;
+    }
+
+    /**
      * Set default returned value
      *
      * @param boolean $state Default returned value
@@ -79,13 +94,25 @@ class Firewall
     }
 
     /**
-     * Get default returned value
+     * Get Client IP
      *
-     * @return boolean
+     * @return string
      */
-    public function getDefaultState()
+    public function getIpAddress()
     {
-        return $this->defaultState;
+        return $this->ipAddress;
+    }
+
+    /**
+     * Set Client IP
+     *
+     * @return $this
+     */
+    public function setIpAddress($ipAddress)
+    {
+        $this->ipAddress = $ipAddress;
+
+        return $this;
     }
 
     /**
@@ -97,7 +124,7 @@ class Firewall
      */
     public function handle(callable $callBack = null)
     {
-        $ip = $this->getIp();
+        $ip = $this->getIpAddress();
 
         $isAllowed = $this->listMerger->getStatus($ip, $this->defaultState);
 
@@ -106,15 +133,5 @@ class Firewall
         } else {
             return $isAllowed;
         }
-    }
-
-    /**
-     * Get Client IP
-     *
-     * @return string
-     */
-    protected function getIp()
-    {
-        return $_SERVER['REMOTE_ADDR'];
     }
 }

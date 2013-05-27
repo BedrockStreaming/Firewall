@@ -44,6 +44,7 @@ $connAllowed = $firewall
     ->setDefaultState(false)
     ->setList($whiteList, 'local', true)
     ->setList($blackList, 'localBad', false)
+    ->setIpAddress('195.88.195.146')
     ->handle()
 ;
 
@@ -100,6 +101,7 @@ $firewall
     ->setDefaultState(true)
     ->setList($whiteList, 'local', true)
     ->setList($blackList, 'localBad', false)
+    ->setIpAddress('195.88.195.146')
     ->handle('handleFirewallReturn')
 ;
 ```

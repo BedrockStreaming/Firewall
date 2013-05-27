@@ -21,9 +21,10 @@ class IPV6CIDR extends atoum\test
     public function testGoodRange($mask, $ip, $expectedResult)
     {
         $this->assert
-                ->if($entry = new Entry\IPV6CIDR($mask))
-                ->then()
-                    ->boolean($entry->check($ip))->isIdenticalTo($expectedResult);
+            ->if($entry = new Entry\IPV6CIDR($mask))
+            ->then()
+                ->boolean($entry->check($ip))->isIdenticalTo($expectedResult)
+        ;
     }
 
     /**
@@ -34,11 +35,11 @@ class IPV6CIDR extends atoum\test
     protected function IPProvider()
     {
         return array(
-            array('::/64','0:0:0:0:0:0:0:0',  false),
-            array('::/64','0:0:0:0:0:0:0:1',  true),
+            array('::/64','0:0:0:0:0:0:0:0',              false),
+            array('::/64','0:0:0:0:0:0:0:1',              true),
             array('::/64', '0:0:0:0:ffff:ffff:ffff:ffff', true),
-            array('::/64', '0:0:0:100:0:0:0:0', true),
-            array('::/64', '0:0:0:0:0:0:10:0', true),
+            array('::/64', '0:0:0:100:0:0:0:0',           true),
+            array('::/64', '0:0:0:0:0:0:10:0',            true),
         );
     }
 }
