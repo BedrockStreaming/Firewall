@@ -1,5 +1,4 @@
 <?php
-
 namespace M6Web\Component\Firewall\Tests\Units;
 
 require_once __DIR__ . '/../bootstrap.php';
@@ -23,6 +22,38 @@ class Firewall extends atoum\test
         ;
     }
 
+    public function testFieldDefaultState()
+    {
+        $object = new FirewallClass();
+
+        $this
+            ->boolean($object->getDefaultState())
+                ->isFalse()
+            ->object($object->setDefaultState(true))
+                ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
+            ->boolean($object->getDefaultState())
+                ->isTrue()
+            ->object($object->setDefaultState('faux boolean'))
+                ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
+            ->boolean($object->getDefaultState())
+                ->isTrue()
+        ;
+    }
+
+    public function testFieldIpAddress()
+    {
+        $object = new FirewallClass();
+
+        $this
+            ->variable($object->getIpAddress())
+                ->isNull()
+            ->object($object->setIpAddress('127.0.0.1'))
+                ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
+            ->string($object->getIpAddress())
+                ->isEqualTo('127.0.0.1')
+        ;
+    }
+
     /**
      * @dataProvider listProvider
      */
@@ -32,8 +63,10 @@ class Firewall extends atoum\test
         $firewall->setList($list, 'list', true);
 
         foreach ($ips as $key => $ip) {
-            $_SERVER['REMOTE_ADDR'] = $ip;
-            $result = $firewall->handle();
+            $result = $firewall
+                ->setIpAddress($ip)
+                ->handle()
+            ;
 
             $this
                 ->assert
