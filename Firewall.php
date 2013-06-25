@@ -57,7 +57,7 @@ class Firewall
      *
      * @return $this
      */
-    public function setList(array $list, $listName, $state=null)
+    public function addList(array $list, $listName, $state=null)
     {
         if (!is_null($state)) {
             $entryList = $this->entryFactory->getEntryList($list, $state);
@@ -86,9 +86,11 @@ class Firewall
      */
     public function setDefaultState($state)
     {
-        if (is_bool($state)) {
-            $this->defaultState = $state;
+        if (!is_bool($state)) {
+            throw new Exception("Wrong parameter 'state' is not boolean");
         }
+
+        $this->defaultState = $state;
 
         return $this;
     }

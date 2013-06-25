@@ -60,7 +60,7 @@ class Firewall extends atoum\test
     public function testLists($list, $ips, $expectedResults)
     {
         $firewall = new FirewallClass();
-        $firewall->setList($list, 'list', true);
+        $firewall->addList($list, 'list', true);
 
         foreach ($ips as $key => $ip) {
             $result = $firewall

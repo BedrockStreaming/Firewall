@@ -27,7 +27,7 @@ class EntryList
     public function __construct(array $list = array(), $trusted = false)
     {
         $this->entries = $list;
-        $this->matchingResponse = $trusted;
+        $this->matchingResponse = ($trusted === true);
     }
 
     /**
