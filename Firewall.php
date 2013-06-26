@@ -38,14 +38,19 @@ class Firewall
      *
      * @param EntryFactory|null $entryFactory Entry Factory
      */
-    public function __construct(EntryFactory $entryFactory = null)
+    public function __construct(EntryFactory $entryFactory = null, ListMerger $listMerger = null)
     {
         if (is_null($entryFactory)) {
             $this->entryFactory = new EntryFactory();
         } else {
             $this->entryFactory = $entryFactory;
         }
-        $this->listMerger = new ListMerger();
+
+        if (is_null($listMerger)) {
+            $this->listMerger = new ListMerger();
+        } else {
+            $this->listMerger = $listMerger;
+        }
     }
 
     /**
@@ -57,12 +62,14 @@ class Firewall
      *
      * @return $this
      */
-    public function setList(array $list, $listName, $state=null)
+    public function addList(array $list, $listName, $state)
     {
-        if (!is_null($state)) {
-            $entryList = $this->entryFactory->getEntryList($list, $state);
-            $this->listMerger->addList($entryList, $listName);
+        if (!is_bool($state)) {
+            throw new \InvalidArgumentException("Wrong parameter 'state' is not boolean");
         }
+
+        $entryList = $this->entryFactory->getEntryList($list, $state);
+        $this->listMerger->addList($entryList, $listName);
 
         return $this;
     }
@@ -86,9 +93,11 @@ class Firewall
      */
     public function setDefaultState($state)
     {
-        if (is_bool($state)) {
-            $this->defaultState = $state;
+        if (!is_bool($state)) {
+            throw new \InvalidArgumentException("Wrong parameter 'state' is not boolean");
         }
+
+        $this->defaultState = $state;
 
         return $this;
     }
@@ -126,7 +135,7 @@ class Firewall
     {
         $ip = $this->getIpAddress();
 
-        $isAllowed = $this->listMerger->getStatus($ip, $this->defaultState);
+        $isAllowed = $this->listMerger->isAllowed($ip, $this->defaultState);
 
         if ($callBack !== null) {
             return call_user_func($callBack, array($this, $isAllowed));

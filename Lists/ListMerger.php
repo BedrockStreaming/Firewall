@@ -36,7 +36,7 @@ class ListMerger
      *
      * @return boolean
      */
-    public function getStatus($entry, $defaultState)
+    public function isAllowed($entry, $defaultState)
     {
         $whited  = false;
         $blacked = false;
