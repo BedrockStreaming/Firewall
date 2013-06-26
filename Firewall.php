@@ -57,12 +57,14 @@ class Firewall
      *
      * @return $this
      */
-    public function addList(array $list, $listName, $state=null)
+    public function addList(array $list, $listName, $state)
     {
-        if (!is_null($state)) {
-            $entryList = $this->entryFactory->getEntryList($list, $state);
-            $this->listMerger->addList($entryList, $listName);
+        if (!is_bool($state)) {
+            throw new \InvalidArgumentException("Wrong parameter 'state' is not boolean");
         }
+
+        $entryList = $this->entryFactory->getEntryList($list, $state);
+        $this->listMerger->addList($entryList, $listName);
 
         return $this;
     }
