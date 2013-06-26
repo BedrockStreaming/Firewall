@@ -19,6 +19,11 @@ class EntryList
     protected $matchingResponse;
 
     /**
+     * @var array $matchingEntries Array of matching entries
+     */
+    protected $matchingEntries;
+
+    /**
      * Constructor
      *
      * @param array   $list    Array with entries
@@ -27,7 +32,7 @@ class EntryList
     public function __construct(array $list = array(), $trusted = false)
     {
         $this->entries = $list;
-        $this->matchingResponse = $trusted;
+        $this->matchingResponse = ($trusted === true);
     }
 
     /**
@@ -55,12 +60,13 @@ class EntryList
      */
     public function getMatchingEntries()
     {
-        $matchingEntries = array();
-
-        foreach ($this->entries as $entry) {
-            $matchingEntries = array_merge($matchingEntries, $entry->getMatchingEntries());
+        if ($this->matchingEntries === null) {
+            $this->matchingEntries = array();
+            foreach ($this->entries as $entry) {
+                $this->matchingEntries = array_merge($this->matchingEntries, $entry->getMatchingEntries());
+            }
         }
 
-        return $matchingEntries;
+        return $this->matchingEntries;
     }
 }

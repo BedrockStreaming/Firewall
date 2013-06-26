@@ -33,8 +33,8 @@ class Firewall extends atoum\test
                 ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
             ->boolean($object->getDefaultState())
                 ->isTrue()
-            ->object($object->setDefaultState('faux boolean'))
-                ->isInstanceOf('M6Web\\Component\\Firewall\\Firewall')
+            ->exception(function () use ($object) { $object->setDefaultState('faux boolean'); })
+                ->isInstanceOf('InvalidArgumentException')
             ->boolean($object->getDefaultState())
                 ->isTrue()
         ;
@@ -60,7 +60,7 @@ class Firewall extends atoum\test
     public function testLists($list, $ips, $expectedResults)
     {
         $firewall = new FirewallClass();
-        $firewall->setList($list, 'list', true);
+        $firewall->addList($list, 'list', true);
 
         foreach ($ips as $key => $ip) {
             $result = $firewall
