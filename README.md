@@ -42,8 +42,8 @@ $firewall = new Firewall();
 
 $connAllowed = $firewall
     ->setDefaultState(false)
-    ->setList($whiteList, 'local', true)
-    ->setList($blackList, 'localBad', false)
+    ->addList($whiteList, 'local', true)
+    ->addList($blackList, 'localBad', false)
     ->setIpAddress('195.88.195.146')
     ->handle()
 ;
@@ -59,8 +59,8 @@ In all other case `handle()` return false.
 
 
 * `setDefaultState(false)` defines default firewall response (Optional - Default false),
-* `setList($whiteList, 'local', true)` defines `$whiteList` list, called `local` as allowed (`true`),
-* `setList($blackList, 'localBad', false);` defines `$blackList` list, called `localBad` as rejected (`false`).
+* `addList($whiteList, 'local', true)` defines `$whiteList` list, called `local` as allowed (`true`),
+* `addList($blackList, 'localBad', false);` defines `$blackList` list, called `localBad` as rejected (`false`).
 
 #### Entries Formats
 
@@ -99,8 +99,8 @@ $blackList = array(
 $firewall = new Firewall();
 $firewall
     ->setDefaultState(true)
-    ->setList($whiteList, 'local', true)
-    ->setList($blackList, 'localBad', false)
+    ->addList($whiteList, 'local', true)
+    ->addList($blackList, 'localBad', false)
     ->setIpAddress('195.88.195.146')
     ->handle('handleFirewallReturn')
 ;
