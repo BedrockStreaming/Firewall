@@ -128,7 +128,7 @@ class Firewall
     {
         $ip = $this->getIpAddress();
 
-        $isAllowed = $this->listMerger->getStatus($ip, $this->defaultState);
+        $isAllowed = $this->listMerger->isAllowed($ip, $this->defaultState);
 
         if ($callBack !== null) {
             return call_user_func($callBack, array($this, $isAllowed));
