@@ -38,14 +38,19 @@ class Firewall
      *
      * @param EntryFactory|null $entryFactory Entry Factory
      */
-    public function __construct(EntryFactory $entryFactory = null)
+    public function __construct(EntryFactory $entryFactory = null, ListMerger $listMerger = null)
     {
         if (is_null($entryFactory)) {
             $this->entryFactory = new EntryFactory();
         } else {
             $this->entryFactory = $entryFactory;
         }
-        $this->listMerger = new ListMerger();
+
+        if (is_null($listMerger)) {
+            $this->listMerger = new ListMerger();
+        } else {
+            $this->listMerger = $listMerger;
+        }
     }
 
     /**
