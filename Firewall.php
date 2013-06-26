@@ -87,7 +87,7 @@ class Firewall
     public function setDefaultState($state)
     {
         if (!is_bool($state)) {
-            throw new Exception("Wrong parameter 'state' is not boolean");
+            throw new \InvalidArgumentException("Wrong parameter 'state' is not boolean");
         }
 
         $this->defaultState = $state;
