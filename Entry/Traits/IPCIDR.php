@@ -1,9 +1,6 @@
 <?php
 namespace M6Web\Component\Firewall\Entry\Traits;
 
-use M6Web\Component\Firewall\Entry\IPV4;
-use M6Web\Component\Firewall\Entry\IPV6;
-
 /**
  * IP CIDR Mask Trait
  * 
