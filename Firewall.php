@@ -1,8 +1,6 @@
 <?php
 namespace M6Web\Component\Firewall;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use M6Web\Component\Firewall\Entry\EntryFactory;
 use M6Web\Component\Firewall\Lists\ListMerger;
 
