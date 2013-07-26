@@ -132,11 +132,11 @@ abstract class AbstractIP extends AbstractEntry
             $binPart = substr($bin, ($bits*16), 16);
             $hexPart = dechex(bindec($binPart));
             $hexFullPart = str_pad($hexPart, 4, "0", STR_PAD_LEFT);
-            $ipv6[] = $hexFullPart;
+            $ipv6Arr[] = $hexFullPart;
             $bits++;
         }
 
-        $ipv6 = implode(':', $ipv6);
+        $ipv6 = implode(':', $ipv6Arr);
 
         if ($abbr) {
             $ipv6 = inet_ntop(inet_pton($ipv6));
