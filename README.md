@@ -121,7 +121,7 @@ $ ./vendor/bin/atoum -d Tests
 
 ## Credits
 
-Developped by the Cytron Team of [M6 Web](http://tech.m6web.fr/).  
+Developped by the [Cytron Team](http://cytron.fr/) of [M6 Web](http://tech.m6web.fr/).  
 Tested with [atoum](http://atoum.org).
 
 ## License
