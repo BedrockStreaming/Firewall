@@ -38,7 +38,7 @@ class IPV6Mask extends atoum\test
             array('::0/ffff:ffff:ffff:ffff:0:0:0:0', '0:0:0:0:0:0:0:0',             false),
             array('::0/ffff:ffff:ffff:ffff:0:0:0:0', '0:0:0:0:0:0:0:1',             true),
             array('::0/ffff:ffff:ffff:ffff:0:0:0:0', '0:0:0:0:ffff:ffff:ffff:ffff', true),
-            array('::0/ffff:ffff:ffff:ffff:0:0:0:0', '0:0:0:100:0:0:0:0',           true),
+            array('::0/ffff:ffff:ffff:ffff:0:0:0:0', '0:0:0:100:0:0:0:0',           false),
             array('::0/ffff:ffff:ffff:ffff:0:0:0:0', '0:0:0:0:0:0:10:0',            true),
         );
     }

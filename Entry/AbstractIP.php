@@ -79,18 +79,14 @@ abstract class AbstractIP extends AbstractEntry
     protected function ip2long6($ipv6)
     {
         $ipN = inet_pton($ipv6);
-        $bits = 15; // 16 x 8 bit = 128bit
-        $binParts = array();
+        $byte = 0;
+        $ipv6Long = 0;
 
-        while ($bits >= 0) {
-            $binParts[] = sprintf("%08b", (ord($ipN[$bits])));
-            $bits--;
+        while ($byte < 16) {
+            $ipv6Long = bcadd(bcmul($ipv6Long, 256), ord($ipN[$byte]));
+            $byte++;
         }
-        $binParts= array_reverse($binParts);
-
-        $ipv6Long = implode("", $binParts);
-
-        return gmp_strval(gmp_init($ipv6Long, 2), 10);
+        return $ipv6Long;
     }
 
     /**
@@ -122,21 +118,16 @@ abstract class AbstractIP extends AbstractEntry
      */
     protected function long2ip6($ipv6long, $abbr = true)
     {
-        $bin = gmp_strval(gmp_init($ipv6long, 10), 2);
-        $bin = str_pad($bin, 128, "0", STR_PAD_LEFT);
         $ipv6Arr = array();
 
-        $bits = 0;
-
-        while ($bits <= 7) {
-            $binPart = substr($bin, ($bits*16), 16);
-            $hexPart = dechex(bindec($binPart));
+        for ($part = 0; $part <= 7; $part++) {
+            $hexPart = dechex(bcmod($ipv6long, 65536));
+            $ipv6long = bcdiv($ipv6long, 65536, 0);
             $hexFullPart = str_pad($hexPart, 4, "0", STR_PAD_LEFT);
             $ipv6Arr[] = $hexFullPart;
-            $bits++;
         }
 
-        $ipv6 = implode(':', $ipv6Arr);
+        $ipv6 = implode(':', array_reverse($ipv6Arr));
 
         if ($abbr) {
             $ipv6 = inet_ntop(inet_pton($ipv6));
@@ -157,16 +148,14 @@ abstract class AbstractIP extends AbstractEntry
     protected function IPLongCompare($long1, $long2, $operator = '=')
     {
         $operators = preg_split('//', $operator);
-        $gmpLong1  = gmp_init($long1);
-        $gmpLong2  = gmp_init($long2);
-        $gmpDiff   = gmp_cmp($gmpLong1, $gmpLong2);
+        $diff   = bccomp($long1, $long2);
 
         foreach ($operators as $operator) {
             switch(true)
             {
-                case ( ( $operator === '=' ) && ( $gmpDiff == 0 ) ):
-                case ( ( $operator === '<' ) && ( $gmpDiff < 0 ) ):
-                case ( ( $operator === '>' ) && ( $gmpDiff > 0 ) ):
+                case ( ( $operator === '=' ) && ( $diff == 0 ) ):
+                case ( ( $operator === '<' ) && ( $diff < 0 ) ):
+                case ( ( $operator === '>' ) && ( $diff > 0 ) ):
                     return true;
             }
         }
@@ -184,7 +173,13 @@ abstract class AbstractIP extends AbstractEntry
      */
     protected function IPLongAnd($long1, $long2)
     {
-        return gmp_strval(gmp_and(gmp_init($long1), gmp_init($long2)));
+        $result = 0;
+        for ($bit = 0; $bit < static::NB_BITS; $bit++) {
+            $div = bcpow(2, $bit);
+            $and = bcmod(bcdiv($long1, $div, 0), 2) && bcmod(bcdiv($long2, $div, 0), 2);
+            $result = bcadd($result, bcmul($and, $div));
+        }
+        return $result;
     }
 
     /**
@@ -197,7 +192,13 @@ abstract class AbstractIP extends AbstractEntry
      */
     protected function IPLongOr($long1, $long2)
     {
-        return gmp_strval(gmp_or(gmp_init($long1), gmp_init($long2)));
+        $result = 0;
+        for ($bit = 0; $bit < static::NB_BITS; $bit++) {
+            $div = bcpow(2, $bit);
+            $and = bcmod(bcdiv($long1, $div, 0), 2) || bcmod(bcdiv($long2, $div, 0), 2);
+            $result = bcadd($result, bcmul($and, $div));
+        }
+        return $result;
     }
 
     /**
@@ -210,7 +211,7 @@ abstract class AbstractIP extends AbstractEntry
      */
     protected function IPLongAdd($long1, $long2)
     {
-        return gmp_strval(gmp_add(gmp_init($long1), gmp_init($long2)));
+        return bcadd($long1, $long2);
     }
 
     /**
@@ -222,7 +223,7 @@ abstract class AbstractIP extends AbstractEntry
      */
     protected function IPLongCom($long)
     {
-        return gmp_strval(gmp_com(gmp_init($long)));
+        return bcsub(bcpow(2, static::NB_BITS), bcadd($long, 1));
     }
 
     /**
