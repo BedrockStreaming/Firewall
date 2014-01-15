@@ -115,10 +115,6 @@ $ php composer.phar install --dev
 $ ./vendor/bin/atoum -d Tests
 ```
 
-## Dependencies
-
-* [GMP Library](http://php.net/manual/en/book.gmp.php "GMP Documentation")
-
 ## Credits
 
 Developped by the [Cytron Team](http://cytron.fr/) of [M6 Web](http://tech.m6web.fr/).  
