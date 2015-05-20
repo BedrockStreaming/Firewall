@@ -65,7 +65,7 @@ abstract class AbstractIP extends AbstractEntry
             case 128:
                 return $this->ip2long6($long);
             default:
-                return strval(ip2long($long));
+                return sprintf('%u', ip2long($long));
         }
     }
     
