@@ -52,9 +52,7 @@ trait IPMask
             $this->IPLongCom($maskLong)
         );
 
-        if ($parts['mask'] == 32) {
-            $ret['end']   = $this->IPLongAdd($ret['end'], 1);
-        } else {
+        if ($parts['mask'] != "255.255.255.255") {
             $ret['begin'] = $this->IPLongAdd($ret['begin'], 1);
         }
 
