@@ -4,6 +4,11 @@ This PHP 5.4+ library provides IP filtering features.
 A lot of [filters](#entries-formats) can be used.  
 It is also possible to [customize](#custom-error-handling) the error handling.
 
+## Requirements
+
+* PHP 5.4 or newer
+* php-bcmath library
+
 ## Installation
 
 Add this line in your `composer.json` :
