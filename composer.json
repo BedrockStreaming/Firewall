@@ -16,9 +16,10 @@
     },
     "target-dir": "M6Web/Component/Firewall",
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "ext-bcmath": "*"
     },
     "require-dev": {
-        "atoum/atoum": "master-dev"
+        "atoum/atoum": "@stable"
     }
 }
