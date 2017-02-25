@@ -4,11 +4,12 @@ php:
   - 5.4
   - 5.5
   - 5.6
-  - 7
+  - 7.0
+  - 7.1
 
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install --dev
 
 script:
-  - vendor/bin/atoum -d Tests
+  - vendor/bin/atoum
