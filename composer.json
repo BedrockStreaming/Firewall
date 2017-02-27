@@ -20,6 +20,6 @@
         "ext-bcmath": "*"
     },
     "require-dev": {
-        "atoum/atoum": "@stable"
+        "atoum/atoum": "^2.8|^3.0"
     }
 }
