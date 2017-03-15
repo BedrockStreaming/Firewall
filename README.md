@@ -31,7 +31,7 @@ use M6Web\Component\Firewall\Firewall;
 
 $whiteList = array(
     '127.0.0.1',
-    '198.168.0.*',
+    '192.168.0.*',
 );
 
 $blackList = array(
