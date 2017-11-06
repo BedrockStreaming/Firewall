@@ -49,7 +49,7 @@ $connAllowed = $firewall
 ;
 
 if (!$connAllowed) {
-    header($_SERVER["SERVER_PROTOCOL"]." 403 Forbiden");
+    http_response_code(403); // Forbiden
     exit();
 }
 ```
