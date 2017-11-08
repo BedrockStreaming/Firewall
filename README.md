@@ -49,7 +49,7 @@ $connAllowed = $firewall
 ;
 
 if (!$connAllowed) {
-    http_response_code(403); // Forbiden
+    http_response_code(403); // Forbidden
     exit();
 }
 ```
