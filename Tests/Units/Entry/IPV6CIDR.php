@@ -40,6 +40,11 @@ class IPV6CIDR extends atoum\test
             array('::/64', '0:0:0:0:ffff:ffff:ffff:ffff', true),
             array('::/64', '0:0:0:100:0:0:0:0',           false),
             array('::/64', '0:0:0:0:0:0:10:0',            true),
+            // Test with big ranges
+            array('ffff:0:0:0:0:0:0:0/16', 'ffff:0:0:0:0:0:0:0', false),
+            array('ffff:0:0:0:0:0:0:0/16', 'ffff:0:0:0:0:0:0:1', true),
+            array('ffff:0:0:0:0:0:0:0/16', 'fff0:0:0:0:0:0:0:1', false),
+            array('ffff:0:0:0:0:0:0:0/16', 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff', true),
         );
     }
 }
