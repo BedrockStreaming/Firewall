@@ -173,12 +173,28 @@ abstract class AbstractIP extends AbstractEntry
      */
     protected function IPLongAnd($long1, $long2)
     {
-        $result = 0;
-        for ($bit = 0; $bit < static::NB_BITS; $bit++) {
-            $div = bcpow(2, $bit);
-            $and = bcmod(bcdiv($long1, $div, 0), 2) && bcmod(bcdiv($long2, $div, 0), 2);
-            $result = bcadd($result, bcmul($and, $div));
+        // The biggest power of 2 lowest than PHP_INT_MAX
+        // PHP_INT_MAX == 2 ** (PHP_INT_SIZE * 8 - 1) - 1
+        $divisor = 1 << (PHP_INT_SIZE * 8 - 2);
+        $result = '0';
+        $i = 0;
+
+        // As soon as a number is 0, the result of a bitwise-& cannot change.
+        while ($long1 && $long2) {
+            // Keep last bits og longs*
+            $chunk1 = bcmod($long1, $divisor);
+            $chunk2 = bcmod($long2, $divisor);
+            // Remove last bits of longs*
+            $long1 = bcdiv($long1, $divisor, 0);
+            $long2 = bcdiv($long2, $divisor, 0);
+
+            // Compare last bits
+            $chunkResult = (int) $chunk1 & (int) $chunk2;
+
+            // Add last bits comparison to global result
+            $result = bcadd($result, bcmul($chunkResult, bcpow($divisor, $i++)));
         }
+
         return $result;
     }
 
@@ -192,12 +208,28 @@ abstract class AbstractIP extends AbstractEntry
      */
     protected function IPLongOr($long1, $long2)
     {
-        $result = 0;
-        for ($bit = 0; $bit < static::NB_BITS; $bit++) {
-            $div = bcpow(2, $bit);
-            $and = bcmod(bcdiv($long1, $div, 0), 2) || bcmod(bcdiv($long2, $div, 0), 2);
-            $result = bcadd($result, bcmul($and, $div));
+        // The biggest power of 2 lowest than PHP_INT_MAX
+        // PHP_INT_MAX == 2 ** (PHP_INT_SIZE * 8 - 1) - 1
+        $divisor = 1 << (PHP_INT_SIZE * 8 - 2);
+        $result = '0';
+        $i = 0;
+
+        // Stop only when numbers have been completely treated
+        while ($long1 || $long2) {
+            // Keep last bits og longs*
+            $chunk1 = bcmod($long1, $divisor);
+            $chunk2 = bcmod($long2, $divisor);
+            // Remove last bits of longs*
+            $long1 = bcdiv($long1, $divisor, 0);
+            $long2 = bcdiv($long2, $divisor, 0);
+
+            // Compare last bits
+            $chunkResult = (int) $chunk1 | (int) $chunk2;
+
+            // Add last bits comparison to global result
+            $result = bcadd($result, bcmul($chunkResult, bcpow($divisor, $i++)));
         }
+
         return $result;
     }
 
